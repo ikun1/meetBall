@@ -1,6 +1,8 @@
 package com.example.user.templatedemo.Domain;
 
-import net.sf.json.JSONObject;
+
+
+import org.json.JSONObject;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -75,25 +77,34 @@ public class Match {
     public static Match getFromJson(JSONObject jsonObject)//从Json转换获得一个实体
     {
         Match match = new Match();
-        match.setBeginTime((Date)jsonObject.get("beginTime"));
-        match.setEndTime((Date)jsonObject.get("endTime"));
-        match.setLocation_lat((float)jsonObject.get("location_lat"));
-        match.setLocation_lng((float)jsonObject.get("location_lng"));
-        match.setMethod((int)jsonObject.get("method"));
+        try {
+            match.setBeginTime((Date) jsonObject.get("beginTime"));
+            match.setEndTime((Date) jsonObject.get("endTime"));
+            match.setLocation_lat((float) jsonObject.get("location_lat"));
+            match.setLocation_lng((float) jsonObject.get("location_lng"));
+            match.setMethod((int) jsonObject.get("method"));
+            return match;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return match;
     }
 
     public String getJsonFrom(){//通过java反射机制把该类所有的属性全部转成json
         JSONObject returnJson = new JSONObject();
-        returnJson.put("matchID",matchID);
-        returnJson.put("method",method);
-        returnJson.put("userName",userName);
-        returnJson.put("location_lng",location_lng);
-        returnJson.put("location_lat",location_lat);
-        returnJson.put("beginTime",beginTime);
-        returnJson.put("endTime",endTime);
+        try {
+            returnJson.put("matchID", matchID);
+            returnJson.put("method", method);
+            returnJson.put("userName", userName);
+            returnJson.put("location_lng", location_lng);
+            returnJson.put("location_lat", location_lat);
+            returnJson.put("beginTime", beginTime);
+            returnJson.put("endTime", endTime);
+            return returnJson.toString();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return returnJson.toString();
-
     }
 
 
