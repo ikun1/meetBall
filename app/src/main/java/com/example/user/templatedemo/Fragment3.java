@@ -7,6 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+
+import jp.wasabeef.glide.transformations.BlurTransformation;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
+
 public class Fragment3 extends Fragment {
     @Nullable
     @Override
@@ -14,6 +20,18 @@ public class Fragment3 extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_3, container, false);
+    }
+    //设置磨砂背景
+    private void initBack(){
+        /*
+        //设置背景磨砂效果
+        Glide.with(this).load(R.drawable.head)
+                .bitmapTransform(new BlurTransformation(this, 25), new CenterCrop(this))
+                .into(mHBack);
+        //设置圆形图像
+        Glide.with(this).load(R.drawable.head)
+                .bitmapTransform(new CropCircleTransformation(this))
+                .into(mHHead);*/
     }
 
 }

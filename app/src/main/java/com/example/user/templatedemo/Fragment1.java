@@ -23,6 +23,9 @@ public class Fragment1 extends Fragment {
             TextView textView = (TextView) getView().findViewById(R.id.firstPage);
             textView.setText("cookie:"+  cookie);
         }
+        @Override
+        public void getRegitserReturn(int result) {
+        }
     };
 
     //示范请求类，用它发送请求，构造的时候把重写好的proH响应类传进去
