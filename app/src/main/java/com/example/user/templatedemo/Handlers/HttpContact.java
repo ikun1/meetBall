@@ -17,7 +17,9 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class HttpContact {
-    //该类用来进行所有访问网络操作,构造方法传入重写过的ProcessHandler
+    /**
+     * 该类用来进行所有访问网络操作,构造方法传入重写过的ProcessHandler
+     */
 
     ProcessHandler processHandler;
     String url_head = "http://120.79.35.179:8531/";
@@ -30,7 +32,9 @@ public class HttpContact {
     }
 
     public void logIn(User user){
-        //把用户名和密码放在user里传进来即可
+        /**把用户名和密码放在user里传进来即可
+         *
+         */
         ArrayList<String> args = new ArrayList<>();
         args.add("userName=" + user.getUserName());
         args.add("password=" + user.getPassword());
@@ -38,7 +42,9 @@ public class HttpContact {
         new Thread(s1).start();
     }
     public void register(User user){
-        //把注册信息填进user，详见数据交换格式
+        /**把注册信息填进user，详见数据交换格式
+         *
+         */
         ArrayList<String> args = new ArrayList<>();
         args.add("userName=" + user.getUserName());
         args.add("password=" + user.getPassword());
@@ -52,7 +58,9 @@ public class HttpContact {
 
 
     private class sendRequest implements Runnable{
-        //发送请求专用线程
+        /**发送请求专用线程
+         *
+         */
         private String url; //发送到该url
         private ArrayList<String> args;//get请求所有参数
         private int Type;//请求类型，传入上面的常量如LOGIN_RESULT
