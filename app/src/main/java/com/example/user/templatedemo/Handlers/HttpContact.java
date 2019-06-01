@@ -23,6 +23,7 @@ public class HttpContact {
     String url_head = "http://120.79.35.179:8531/";
 
     public static final int LOGIN_RESULT = 0;
+    public static final int REGISTER = 1;
 
     public HttpContact(ProcessHandler processHandler){
         this.processHandler = processHandler;
@@ -36,6 +37,19 @@ public class HttpContact {
         sendRequest s1 = new sendRequest(args,LOGIN_RESULT);
         new Thread(s1).start();
     }
+    public void register(User user){
+        //把注册信息填进user，详见数据交换格式
+        ArrayList<String> args = new ArrayList<>();
+        args.add("userName=" + user.getUserName());
+        args.add("password=" + user.getPassword());
+        args.add("role=" + user.getRole());
+        args.add("height=" + user.getHeight());
+        args.add("age=" + user.getAge());
+
+        sendRequest s1 = new sendRequest(args,REGISTER);
+        new Thread(s1).start();
+    }
+
 
     private class sendRequest implements Runnable{
         //发送请求专用线程
@@ -49,13 +63,14 @@ public class HttpContact {
             String index = null;
             switch (Type){
                 case LOGIN_RESULT:index = "login";break;
+                case REGISTER:index = "register";break;
             }
             url = url + index + "?";
             for(int i = 0;i<args.size();i++){
                 url = url + args.get(i) + "&";
             }
             System.out.println(url);
-        }
+    }
 
         @Override
         public void run(){

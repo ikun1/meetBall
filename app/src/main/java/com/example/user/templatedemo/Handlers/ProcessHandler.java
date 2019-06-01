@@ -12,10 +12,15 @@ public abstract class ProcessHandler extends Handler {
     @Override
     public void handleMessage(Message msg) {
         super.handleMessage(msg);
+        JSONObject jsonObject;
+        jsonObject = (JSONObject) msg.obj;
+
         switch (msg.what) {
             case HttpContact.LOGIN_RESULT:
-                JSONObject jsonObject = (JSONObject) msg.obj;
                 Login_result(jsonObject);
+                break;
+            case HttpContact.REGISTER:
+                Register_result(jsonObject);
                 break;
 
             default:
@@ -33,8 +38,18 @@ public abstract class ProcessHandler extends Handler {
         }
     }
 
+    private void Register_result(JSONObject jsonObject){
+        try {
+            int result = (int) jsonObject.get("result");
+            getRegitserReturn(result);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public abstract void getLogInReturn(int result,String cookie);
     //该方法进行登录之后的UI更新，传入值分别为result返回结果，cookie返回的cookie值，需要保存(其他的返回结果含义可以参照数据交换格式文档)
 
+    public abstract void getRegitserReturn(int result);
 
 }
