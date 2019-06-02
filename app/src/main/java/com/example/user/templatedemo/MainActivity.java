@@ -11,8 +11,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+
+import jp.wasabeef.glide.transformations.BlurTransformation;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 import com.example.user.templatedemo.Handlers.HttpContact;
 import com.example.user.templatedemo.Handlers.ProcessHandler;
@@ -24,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     private Fragment2 fragment2;
     private Fragment3 fragment3;
     private long mExitTime;//按两次退出时间间隔记录。
+    private ImageView blurImageView;
+    private ImageView avatarImageView;
 
 
     @Override
@@ -106,17 +115,30 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
+    //为Fragment3添加磨砂背景
+    private void initBack(){
+        blurImageView = (ImageView) findViewById(R.id.iv_blur);
+        avatarImageView = (ImageView) findViewById(R.id.iv_avatar);
+
+        Glide.with(this).load(R.drawable.head)
+                .bitmapTransform(new BlurTransformation(this, 25), new CenterCrop(this))
+                .into(blurImageView);
+
+        Glide.with(this).load(R.drawable.head)
+                .bitmapTransform(new CropCircleTransformation(this))
+                .into(avatarImageView);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉标题栏
         setContentView(R.layout.activity_main);
         init();
+        //initBack();
 
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
-
     }
 }
