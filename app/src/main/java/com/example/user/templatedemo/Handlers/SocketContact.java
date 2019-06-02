@@ -23,11 +23,24 @@ public class SocketContact {
     public static final  int MATCH = 1;
 
     private SocketHandler socketHandler;
+    private static SocketContact socketContact = null;
 
-    public SocketContact (SocketHandler socketHandler){
+    public static SocketContact getInstance(SocketHandler socketHandler){
+        //由于socket链接的特殊性必须控制单例，没有构造方法请用这个来获取单例
+        if(socketContact == null)
+            socketContact = new SocketContact(socketHandler);
+        return socketContact;
+    }
+    public static SocketContact getInstance(){
+        return socketContact;
+    }
+
+    private SocketContact (SocketHandler socketHandler){
         //传入重写过UI更新方法后的socketHandler
         this.socketHandler = socketHandler;
     }
+
+
 
     public void sendMessage(String msg) {
         System.out.println(msg);// 先在控制台输出
