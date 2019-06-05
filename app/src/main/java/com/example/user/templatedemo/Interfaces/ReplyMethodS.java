@@ -6,5 +6,5 @@ import org.json.JSONObject;
 
 public interface ReplyMethodS{
     void connect_failed();//连接失败响应
-    void getInfomation(User user);
+    void getInfomation(User user);//获取到用户信息响应
 }

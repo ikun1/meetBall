@@ -21,7 +21,7 @@ public class SocketContact {
     private static final int PORT = 2836;//连接端口号
     public static  final int CONNECT_FAILED = 0;
     public static final  int MATCH = 1;
-    public static final  int GETIMFO = 1;
+    public static final  int GETINFO = 2;
 
     private SocketHandler socketHandler;
 
@@ -82,6 +82,7 @@ public class SocketContact {
             Message message = new Message();
             switch (Type){
                 case "<matchRe>":message.what=MATCH;break;
+                case"<userInfo>":message.what=GETINFO;break;
             }
             message.obj = jsonObject;
             socketHandler.sendMessage(message);

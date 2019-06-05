@@ -4,6 +4,8 @@ import com.example.user.templatedemo.Domain.User;
 import com.example.user.templatedemo.Handlers.SocketContact;
 import com.example.user.templatedemo.Handlers.SocketHandler;
 import com.example.user.templatedemo.Interfaces.ReplyMethodS;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONObject;
 
@@ -13,6 +15,7 @@ public  class SocketService {
     private SocketHandler socketHandler;
     private ReplyMethodS replyMethodS;
     private static SocketService socketService;
+    private static String fetch = System.getProperty("line.separator");
 
     public void ResetMethod(ReplyMethodS replyMethodS){
         //特殊情况会用到，重构响应，用于发送消息前临时重构响应
@@ -33,7 +36,7 @@ public  class SocketService {
                     processResult(type, jsonObject);
                 }
             };
-            SocketContact socketContact = new SocketContact(socketHandler);
+            socketContact = new SocketContact(socketHandler);
             socketContact.Connect();
             socketService = this;
         }
@@ -48,8 +51,10 @@ public  class SocketService {
             //传入昵称，获取个人信息
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("userName", userName);
+
             System.out.println(jsonObject.toString());
-            socketContact.sendMessage(jsonObject.toString());
+
+            socketContact.sendMessage("<getInfo>" + fetch + jsonObject.toString() + fetch + "</getInfo>");
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -58,14 +63,17 @@ public  class SocketService {
 
     private void processResult(int type, JSONObject jsonObject){
         switch (type){
-            case SocketContact.GETIMFO:getInformation(jsonObject);break;
+            case SocketContact.GETINFO:getInformation(jsonObject);break;
         }
 
     }
 
     private void getInformation(JSONObject jsonObject){
         try {
-            User user = (User) jsonObject.get("user");
+            JSONObject userJson = (JSONObject) jsonObject.get("user");
+            Gson gson = new Gson();
+            User user = gson.fromJson(userJson.toString(),new TypeToken<User>(){}.getType());
+            //使用gson进行Bean强转
             replyMethodS.getInfomation(user);
         }catch (Exception e){
             e.printStackTrace();

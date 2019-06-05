@@ -147,6 +147,19 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+        socketService = new SocketService(new ReplyMethodS() {
+            @Override
+            public void connect_failed() {
+                //连接失败的操作
+            }
+
+            @Override
+            public void getInfomation(User user) {
+                //获取到信息的操作
+                fragment1.reactInfo(user);
+            }
+        });
+
     }
 
 

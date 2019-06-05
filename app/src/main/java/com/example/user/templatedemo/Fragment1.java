@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.user.templatedemo.Domain.User;
 import com.example.user.templatedemo.Handlers.HttpContact;
 import com.example.user.templatedemo.Handlers.ProcessHandler;
+import com.example.user.templatedemo.Service.SocketService;
 
 public class Fragment1 extends Fragment {
     @Nullable
@@ -53,14 +54,22 @@ public class Fragment1 extends Fragment {
         });
 
         Button testButton2 = (Button) getView().findViewById(R.id.button2);
-        testButton.setOnClickListener(new View.OnClickListener() {
+        testButton2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
+                //按下按钮，使用单例的service来发送请求
+                SocketService.getInstance().askInfomation("xiayu");
             }
         });
 
 
         super.onActivityCreated(bundle);
+    }
+
+    public void reactInfo(User user)
+    //响应信息获取方法，被MainActivity中的service调用
+    {
+        TextView textView = (TextView) getView().findViewById(R.id.firstPage);
+        textView.setText("用户id:"+  user.getUserName());
     }
 
 
