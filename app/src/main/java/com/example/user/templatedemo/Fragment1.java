@@ -52,8 +52,17 @@ public class Fragment1 extends Fragment {
             }
         });
 
+        Button testButton2 = (Button) getView().findViewById(R.id.button2);
+        testButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+            }
+        });
+
 
         super.onActivityCreated(bundle);
     }
+
+
 
 }

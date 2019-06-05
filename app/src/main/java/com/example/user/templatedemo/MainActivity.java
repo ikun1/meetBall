@@ -21,8 +21,12 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
+import com.example.user.templatedemo.Domain.User;
 import com.example.user.templatedemo.Handlers.HttpContact;
 import com.example.user.templatedemo.Handlers.ProcessHandler;
+import com.example.user.templatedemo.Handlers.SocketContact;
+import com.example.user.templatedemo.Interfaces.ReplyMethodS;
+import com.example.user.templatedemo.Service.SocketService;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     private long mExitTime;//按两次退出时间间隔记录。
     private ImageView blurImageView;
     private ImageView avatarImageView;
+    public static SocketService socketService;//注意，socketService只需在主界面声明，后面必须保持单例
+
 
 
     @Override
@@ -140,5 +146,8 @@ public class MainActivity extends AppCompatActivity {
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
     }
+
+
 }

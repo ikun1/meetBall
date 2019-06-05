@@ -21,21 +21,13 @@ public class SocketContact {
     private static final int PORT = 2836;//连接端口号
     public static  final int CONNECT_FAILED = 0;
     public static final  int MATCH = 1;
+    public static final  int GETIMFO = 1;
 
     private SocketHandler socketHandler;
-    private static SocketContact socketContact = null;
 
-    public static SocketContact getInstance(SocketHandler socketHandler){
-        //由于socket链接的特殊性必须控制单例，没有构造方法请用这个来获取单例
-        if(socketContact == null)
-            socketContact = new SocketContact(socketHandler);
-        return socketContact;
-    }
-    public static SocketContact getInstance(){
-        return socketContact;
-    }
 
-    private SocketContact (SocketHandler socketHandler){
+
+    public SocketContact (SocketHandler socketHandler){
         //传入重写过UI更新方法后的socketHandler
         this.socketHandler = socketHandler;
     }
@@ -57,7 +49,8 @@ public class SocketContact {
 
     public void Connect(){
         /**
-         * 与http不同的是，这个类被创建之后如果要建立连接必须先调用这个connect方法，连接成功不作回调，连接失败会调用绑定socketHandler的connect_failed方法
+         * 与http不同的是，这个类第一次建立连接必须先调用这个connect方法，且只在主界面调用一次，
+         * 连接成功不作回调，连接失败会调用绑定socketHandler的connect_failed方法
          */
         new Thread(new Runnable() {
             @Override
