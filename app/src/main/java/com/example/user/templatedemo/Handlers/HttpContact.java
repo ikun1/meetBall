@@ -56,7 +56,6 @@ public class HttpContact {
         new Thread(s1).start();
     }
 
-
     private class sendRequest implements Runnable{
         /**发送请求专用线程
          *
@@ -105,6 +104,5 @@ public class HttpContact {
             }
         }
     }
-
 
 }

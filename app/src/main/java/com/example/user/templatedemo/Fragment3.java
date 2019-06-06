@@ -25,19 +25,5 @@ public class Fragment3 extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_3, container, false);
     }
-    /*
-    //设置磨砂背景
-    private void initBack(){
-        blurImageView = (ImageView) getView().findViewById(R.id.iv_blur);
-        avatarImageView = (ImageView) getView().findViewById(R.id.iv_avatar);
-
-        Glide.with(this).load(R.drawable.head)
-                .bitmapTransform(new BlurTransformation(this, 25), new CenterCrop(this))
-                .into(blurImageView);
-
-        Glide.with(this).load(R.drawable.head)
-                .bitmapTransform(new CropCircleTransformation(this))
-                .into(avatarImageView);
-    }*/
 
 }

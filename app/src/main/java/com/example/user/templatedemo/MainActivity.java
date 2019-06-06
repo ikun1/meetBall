@@ -5,6 +5,7 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -38,8 +39,6 @@ public class MainActivity extends AppCompatActivity {
     private ImageView blurImageView;
     private ImageView avatarImageView;
     public static SocketService socketService;//注意，socketService只需在主界面声明，后面必须保持单例
-
-
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -126,6 +125,11 @@ public class MainActivity extends AppCompatActivity {
         blurImageView = (ImageView) findViewById(R.id.iv_blur);
         avatarImageView = (ImageView) findViewById(R.id.iv_avatar);
 
+        //final NavigationView mNavigationView = (NavigationView)findViewById(R.id.navigation_notifications);
+        System.out.println("这个是log");
+        System.out.println(blurImageView);
+        System.out.println(R.id.iv_avatar);
+
         Glide.with(this).load(R.drawable.head)
                 .bitmapTransform(new BlurTransformation(this, 25), new CenterCrop(this))
                 .into(blurImageView);
@@ -158,8 +162,5 @@ public class MainActivity extends AppCompatActivity {
                 fragment1.reactInfo(user);
             }
         });
-
     }
-
-
 }
