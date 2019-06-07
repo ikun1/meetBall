@@ -10,10 +10,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.user.templatedemo.Domain.Match;
 import com.example.user.templatedemo.Domain.User;
 import com.example.user.templatedemo.Handlers.HttpContact;
 import com.example.user.templatedemo.Handlers.ProcessHandler;
 import com.example.user.templatedemo.Service.SocketService;
+
+import java.util.Date;
+import java.util.List;
 
 public class Fragment1 extends Fragment {
     @Nullable
@@ -22,7 +26,8 @@ public class Fragment1 extends Fragment {
     ProcessHandler proH = new ProcessHandler(){
         public  void getLogInReturn(int result,String cookie){
             TextView textView = (TextView) getView().findViewById(R.id.firstPage);
-            textView.setText("cookie:"+  cookie);
+            textView.setText("cookie:"+  cookie);//cookie必须存起来
+            MainActivity.cookie=cookie;
         }
         @Override
         public void getRegitserReturn(int result) {
@@ -61,6 +66,20 @@ public class Fragment1 extends Fragment {
             }
         });
 
+        Button testButton3 = (Button) getView().findViewById(R.id.button3);
+        testButton3.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //按下按钮，使用单例的service来发送请求
+                Match match = new Match();
+                match.setBeginTime(new Date());
+                match.setEndTime(new Date());
+                match.setLocation_lat(1.145f);
+                match.setLocation_lng(1.1564f);
+                match.setMethod(3);
+                SocketService.getInstance().beginMatch(MainActivity.cookie,match);
+            }
+        });
+
 
         super.onActivityCreated(bundle);
     }
@@ -70,6 +89,12 @@ public class Fragment1 extends Fragment {
     {
         TextView textView = (TextView) getView().findViewById(R.id.firstPage);
         textView.setText("用户id:"+  user.getUserName());
+    }
+
+    public void reactInfo(int result, List<String> userNames, int matchID)
+    {
+        TextView textView = (TextView) getView().findViewById(R.id.firstPage);
+        textView.setText("匹配结果：" + result + "MatchID:" + matchID);
     }
 
 

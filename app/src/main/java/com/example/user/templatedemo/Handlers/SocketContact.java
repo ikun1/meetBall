@@ -22,6 +22,8 @@ public class SocketContact {
     public static  final int CONNECT_FAILED = 0;
     public static final  int MATCH = 1;
     public static final  int GETINFO = 2;
+    public static  final int MATCHRE = 3;
+    public static final int MATCHINFO = 4;
 
     private SocketHandler socketHandler;
 
