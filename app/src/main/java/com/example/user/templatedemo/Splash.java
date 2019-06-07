@@ -19,11 +19,16 @@ public class Splash extends AppCompatActivity {
                     sleep(3000);
                     Intent it = new Intent(getApplicationContext(),MainActivity.class);//启动MainActivity
                     startActivity(it);
-                    finish();//关闭当前活动
+                    if (true){
+                        //加入是否首次登录的判断
+                        Intent intent = new Intent(Splash.this, loginActivity.class);
+                        startActivity(intent);
+                    }
+
+                    //finish();关闭当前活动
                 }catch (Exception e){
                     e.printStackTrace();
                 }
-
             }
         };
         myThread.start();

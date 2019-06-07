@@ -21,7 +21,6 @@ import java.util.List;
 
 public class Fragment1 extends Fragment {
     @Nullable
-
 //示范响应类，重写它的内部抽象方法可实现根据http返回值更新UI
     ProcessHandler proH = new ProcessHandler(){
         public  void getLogInReturn(int result,String cookie){
@@ -96,7 +95,4 @@ public class Fragment1 extends Fragment {
         TextView textView = (TextView) getView().findViewById(R.id.firstPage);
         textView.setText("匹配结果：" + result + "MatchID:" + matchID);
     }
-
-
-
 }

@@ -124,8 +124,6 @@ public class SocketContact {
                 e.printStackTrace();
             }
         }
-
-
     }
 
 }

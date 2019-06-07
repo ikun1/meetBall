@@ -11,8 +11,6 @@ public  abstract class SocketHandler extends Handler {
      * 请使用该类来实现响应socket结果以完成相应的UI更新
      */
 
-
-
     @Override
     public void handleMessage(Message msg) {
         super.handleMessage(msg);
