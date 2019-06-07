@@ -27,8 +27,6 @@ public class SocketContact {
 
     private SocketHandler socketHandler;
 
-
-
     public SocketContact (SocketHandler socketHandler){
         //传入重写过UI更新方法后的socketHandler
         this.socketHandler = socketHandler;

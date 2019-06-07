@@ -79,7 +79,6 @@ public class Fragment1 extends Fragment {
             }
         });
 
-
         super.onActivityCreated(bundle);
     }
 

@@ -4,6 +4,10 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.WindowManager;
+import android.widget.TextView;
+
+import com.example.user.templatedemo.Handlers.HttpContact;
+import com.example.user.templatedemo.Handlers.ProcessHandler;
 
 public class Splash extends AppCompatActivity {
 
