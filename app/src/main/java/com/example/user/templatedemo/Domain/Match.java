@@ -13,8 +13,8 @@ import java.util.Date;
 public class Match {
     private int matchID;
     private String userName;
-    private float location_lat;
-    private float location_lng;
+    private double location_lat;
+    private double location_lng;
     private String beginStr;
     private String endStr;
     int method;
@@ -70,19 +70,19 @@ public class Match {
         endStr = dateString;
     }
 
-    public float getLocation_lat() {
+    public double getLocation_lat() {
         return location_lat;
     }
 
-    public void setLocation_lat(float location_lat) {
+    public void setLocation_lat(double location_lat) {
         this.location_lat = location_lat;
     }
 
-    public float getLocation_lng() {
+    public double getLocation_lng() {
         return location_lng;
     }
 
-    public void setLocation_lng(float location_lng) {
+    public void setLocation_lng(double location_lng) {
         this.location_lng = location_lng;
     }
 
