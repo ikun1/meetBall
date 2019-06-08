@@ -38,6 +38,7 @@ public  class SocketService {
 
                 @Override
                 public void getResult(int type, JSONObject jsonObject) {
+                    System.out.println(jsonObject.toString());
                     processResult(type, jsonObject);
                 }
             };
@@ -103,7 +104,7 @@ public  class SocketService {
     private void processResult(int type, JSONObject jsonObject){
         switch (type){
             case SocketContact.GETINFO:getInformation(jsonObject);break;
-            case SocketContact.MATCHRE:getMatchRe(jsonObject);break;
+            case SocketContact.MATCH:getMatchRe(jsonObject);break;
             case SocketContact.MATCHINFO:getMatchInfo(jsonObject);break;
 
         }
