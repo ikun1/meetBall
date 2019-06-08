@@ -85,12 +85,11 @@ public  class SocketService {
         try {
             //传入除id外的Match信息，开始匹配
             JSONObject jsonObject = new JSONObject();
+            Gson gson = new Gson();
+            String matchStr = gson.toJson(match);
+
             jsonObject.put("cookie", cookie);
-            jsonObject.put("location_lat",match.getLocation_lat());
-            jsonObject.put("location_lng",match.getLocation_lng());
-            jsonObject.put("beginTime",match.getBeginTime());
-            jsonObject.put("endTime",match.getEndTime());
-            jsonObject.put("method",match.getMethod());
+            jsonObject.put("match",matchStr);
 
             System.out.println(jsonObject.toString());
 

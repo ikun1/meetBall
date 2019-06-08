@@ -6,15 +6,17 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Match {
     private int matchID;
     private String userName;
-    private Date beginTime;
-    private Date endTime;
     private float location_lat;
     private float location_lng;
+    private String beginStr;
+    private String endStr;
     int method;
 
 
@@ -43,19 +45,29 @@ public class Match {
     }
 
     public Date getBeginTime() {
-        return beginTime;
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        ParsePosition pos = new ParsePosition(0);
+        Date strtodate = formatter.parse(beginStr, pos);
+        return strtodate;
     }
 
     public void setBeginTime(Date beginTime) {
-        this.beginTime = beginTime;
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String dateString = formatter.format(beginTime);
+        beginStr = dateString;
     }
 
     public Date getEndTime() {
-        return endTime;
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        ParsePosition pos = new ParsePosition(0);
+        Date strtodate = formatter.parse(endStr, pos);
+        return strtodate;
     }
 
     public void setEndTime(Date endTime) {
-        this.endTime = endTime;
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String dateString = formatter.format(endTime);
+        endStr = dateString;
     }
 
     public float getLocation_lat() {
@@ -74,38 +86,27 @@ public class Match {
         this.location_lng = location_lng;
     }
 
-    public static Match getFromJson(JSONObject jsonObject)//从Json转换获得一个实体
-    {
-        Match match = new Match();
-        try {
-            match.setBeginTime((Date) jsonObject.get("beginTime"));
-            match.setEndTime((Date) jsonObject.get("endTime"));
-            match.setLocation_lat((float) jsonObject.get("location_lat"));
-            match.setLocation_lng((float) jsonObject.get("location_lng"));
-            match.setMethod((int) jsonObject.get("method"));
-            return match;
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return match;
+
+    public String getBeginStr() {
+        return beginStr;
     }
 
-    public String getJsonFrom(){//通过java反射机制把该类所有的属性全部转成json
-        JSONObject returnJson = new JSONObject();
-        try {
-            returnJson.put("matchID", matchID);
-            returnJson.put("method", method);
-            returnJson.put("userName", userName);
-            returnJson.put("location_lng", location_lng);
-            returnJson.put("location_lat", location_lat);
-            returnJson.put("beginTime", beginTime);
-            returnJson.put("endTime", endTime);
-            return returnJson.toString();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return returnJson.toString();
+    public void setBeginStr(String beginStr) {
+        this.beginStr = beginStr;
     }
+
+    public String getEndStr() {
+        return endStr;
+    }
+
+    public void setEndStr(String endStr) {
+        this.endStr = endStr;
+    }
+
+
+
+
+
 
 
 }
