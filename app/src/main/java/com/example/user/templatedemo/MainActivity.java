@@ -175,7 +175,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void getMatchInfo(Match match){//从匹配ID获取到匹配信息的触发
 
-
             }
 
         });

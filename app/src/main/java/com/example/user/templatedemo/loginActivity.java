@@ -14,6 +14,7 @@ import com.example.user.templatedemo.Handlers.ProcessHandler;
 
 public class loginActivity extends Activity {
     int loginState;
+    int registerState;
     //示范响应类，重写它的内部抽象方法可实现根据http返回值更新UI
     ProcessHandler proH = new ProcessHandler(){
         public void getLogInReturn(int result,String cookie){
@@ -24,6 +25,7 @@ public class loginActivity extends Activity {
         }
         @Override
         public void getRegitserReturn(int result) {
+            registerState = result;
         }
     };
 
