@@ -2,7 +2,6 @@ package com.example.user.templatedemo.Domain;
 
 
 
-import org.json.JSONObject;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -18,6 +17,16 @@ public class Match {
     private String beginStr;
     private String endStr;
     int method;
+    int status;
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+    //当前房间状态，1为等待中，2为已满人。
 
 
     public int getMethod() {

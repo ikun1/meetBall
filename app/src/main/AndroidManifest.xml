@@ -21,8 +21,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".loginActivity" android:label="Login"></activity>
-        <activity android:name=".registerActivity" android:label="Register"></activity>
+        <activity android:name=".loginActivity" android:label="Login" android:screenOrientation="portrait"></activity>
+        <activity android:name=".registerActivity" android:label="Register" android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
