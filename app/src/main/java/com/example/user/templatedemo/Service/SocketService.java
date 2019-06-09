@@ -27,7 +27,7 @@ public  class SocketService {
         this.replyMethodS = replyMethodS;
     }
 
-    public SocketService(final ReplyMethodS replyMethodS){
+    public SocketService(final ReplyMethodS replyMethodS,String cookie){
         //构造方法，传入已经写好的接口操作
         this.replyMethodS = replyMethodS;
             socketHandler = new SocketHandler() {
@@ -45,6 +45,7 @@ public  class SocketService {
             socketContact = new SocketContact(socketHandler);
             socketContact.Connect();
             socketService = this;
+            client(cookie);
         }
 
     public static SocketService getInstance(){
@@ -58,9 +59,22 @@ public  class SocketService {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("userName", userName);
 
-            System.out.println(jsonObject.toString());
 
             socketContact.sendMessage("<getInfo>" + fetch + jsonObject.toString() + fetch + "</getInfo>");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    public void client (String cookie){
+        try {
+            //传入昵称，获取个人信息
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("cookie", cookie);
+
+
+            socketContact.sendMessage("<client>" + fetch + jsonObject.toString() + fetch + "</client>");
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -73,7 +87,6 @@ public  class SocketService {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("matchID", matchID);
 
-            System.out.println(jsonObject.toString());
 
             socketContact.sendMessage("<getMatchInfo>" + fetch + jsonObject.toString() + fetch + "</getMatchInfo>");
         }catch (Exception e){
@@ -92,7 +105,6 @@ public  class SocketService {
             jsonObject.put("cookie", cookie);
             jsonObject.put("match",matchStr);
 
-            System.out.println(jsonObject.toString());
 
             socketContact.sendMessage("<match>" + fetch + jsonObject.toString() + fetch + "</match>");
         }catch (Exception e){
