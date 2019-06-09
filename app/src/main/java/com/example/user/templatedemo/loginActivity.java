@@ -3,15 +3,21 @@ package com.example.user.templatedemo;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.user.templatedemo.Domain.User;
 import com.example.user.templatedemo.Handlers.HttpContact;
 import com.example.user.templatedemo.Handlers.ProcessHandler;
+import com.example.user.templatedemo.Handlers.SocketContact;
 import com.example.user.templatedemo.Service.AccountService;
+
+import org.json.JSONObject;
 
 public class loginActivity extends Activity {
     int loginState;
@@ -38,11 +44,18 @@ public class loginActivity extends Activity {
                 String psw = etPsw.getText().toString().trim();
                 user.setUserName(userName);
                 user.setPassword(psw);
-                loginState = AccountService.getInstance().getLoginState(user);
-                if (loginState == 1){
-                    finish();
-                }
+                AccountService.getInstance().getLoginState(user,(loginActivity)v.getContext());
+
             }
         });
     }
+    public void reactLogin(int status){
+        if(status == 1)
+            finish();
+        else if(status == 2)
+            Toast.makeText(this, getString(R.string.error).toString(), Toast.LENGTH_SHORT).show();
+
+    }
+
 }
+

@@ -22,12 +22,13 @@ public  class SocketService {
     private static SocketService socketService;
     private static String fetch = System.getProperty("line.separator");
 
+
     public void ResetMethod(ReplyMethodS replyMethodS){
         //特殊情况会用到，重构响应，用于发送消息前临时重构响应
         this.replyMethodS = replyMethodS;
     }
 
-    public SocketService(final ReplyMethodS replyMethodS,String cookie){
+    public SocketService(final ReplyMethodS replyMethodS){
         //构造方法，传入已经写好的接口操作
         this.replyMethodS = replyMethodS;
             socketHandler = new SocketHandler() {
@@ -45,7 +46,6 @@ public  class SocketService {
             socketContact = new SocketContact(socketHandler);
             socketContact.Connect();
             socketService = this;
-            client(cookie);
         }
 
     public static SocketService getInstance(){

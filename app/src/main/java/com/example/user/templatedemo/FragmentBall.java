@@ -28,7 +28,6 @@ public class FragmentBall extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        initWheel2();
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_ball, container, false);
     }
@@ -36,6 +35,13 @@ public class FragmentBall extends Fragment {
     /**
      * holo皮肤
      */
+    @Override
+    public void onActivityCreated(Bundle bundle)
+    {
+        initWheel2();
+        super.onActivityCreated(bundle);
+    }
+
     private void initWheel2() {
         hourWheelView = (WheelView) getView().findViewById(R.id.hour_wheelview);
         hourWheelView.setWheelAdapter(new ArrayWheelAdapter(this.getActivity()));

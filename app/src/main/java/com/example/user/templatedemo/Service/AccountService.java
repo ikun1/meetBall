@@ -1,15 +1,22 @@
 package com.example.user.templatedemo.Service;
 
+import android.os.Handler;
+import android.os.Message;
+
 import com.example.user.templatedemo.Domain.User;
 import com.example.user.templatedemo.Handlers.HttpContact;
 import com.example.user.templatedemo.Handlers.ProcessHandler;
 import com.example.user.templatedemo.MainActivity;
+import com.example.user.templatedemo.loginActivity;
 
 public class AccountService {
     int loginState;
     int registerState;
     HttpContact httpC;
+    loginActivity react;
     private static AccountService accountService;
+
+    public static int LOGIN = 1;
 
     public AccountService(){
         //示范响应类，重写它的内部抽象方法可实现根据http返回值更新UI
@@ -19,6 +26,9 @@ public class AccountService {
                 //textView.setText("cookie:"+  cookie);//cookie必须存起来
                 MainActivity.cookie=cookie;
                 loginState = result;
+                SocketService.getInstance().client(cookie);
+                react.reactLogin(result);
+
             }
             @Override
             public void getRegitserReturn(int result) {
@@ -35,10 +45,9 @@ public class AccountService {
         return accountService;
     }
 
-    public int getLoginState(User user){
+    public void getLoginState(User user, loginActivity react){
         httpC.logIn(user);
-        System.out.println("结果为:" + loginState);
-        return loginState;
+        this.react = react;
     }
 
     public int getRegisterState(){
