@@ -3,7 +3,9 @@ package com.example.user.templatedemo;
 import android.accounts.Account;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -32,7 +34,16 @@ import com.example.user.templatedemo.Handlers.SocketContact;
 import com.example.user.templatedemo.Interfaces.ReplyMethodS;
 import com.example.user.templatedemo.Service.AccountService;
 import com.example.user.templatedemo.Service.SocketService;
+import com.wx.wheelview.adapter.ArrayWheelAdapter;
+import com.wx.wheelview.adapter.SimpleWheelAdapter;
+import com.wx.wheelview.common.WheelData;
+import com.wx.wheelview.util.WheelUtils;
+import com.wx.wheelview.widget.WheelView;
+import com.wx.wheelview.widget.WheelViewDialog;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -49,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
     public static SocketService socketService;//注意，socketService只需在主界面声明，后面必须保持单例
     public static AccountService accountService;
     public static String cookie;
+    private WheelView hourWheelView,minuteWheelView,secondWheelView;
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -174,12 +186,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
+
         //initBack();
 
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
+        //initWheel2();
         socketService = new SocketService(new ReplyMethodS() {
             @Override
             public void connect_failed() {
@@ -211,4 +224,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
+
+
 }
