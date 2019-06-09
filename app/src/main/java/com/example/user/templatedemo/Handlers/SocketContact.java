@@ -33,17 +33,22 @@ public class SocketContact {
 
 
 
-    public void sendMessage(String msg) {
-        System.out.println(msg);// 先在控制台输出
-        PrintWriter out = null;
-        try {
-            out = new PrintWriter(new BufferedWriter(
-                    new OutputStreamWriter(socket.getOutputStream())),
-                    true);// 创建输出流对象
-            out.println(msg);// 转发
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void sendMessage(final String msg) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println(msg);// 先在控制台输出
+                PrintWriter out = null;
+                try {
+                    out = new PrintWriter(new BufferedWriter(
+                            new OutputStreamWriter(socket.getOutputStream())),
+                            true);// 创建输出流对象
+                    out.println(msg);// 转发
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     public void Connect(){
