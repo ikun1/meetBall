@@ -11,26 +11,10 @@ import android.widget.TextView;
 import com.example.user.templatedemo.Domain.User;
 import com.example.user.templatedemo.Handlers.HttpContact;
 import com.example.user.templatedemo.Handlers.ProcessHandler;
+import com.example.user.templatedemo.Service.AccountService;
 
 public class loginActivity extends Activity {
     int loginState;
-    int registerState;
-    //示范响应类，重写它的内部抽象方法可实现根据http返回值更新UI
-    ProcessHandler proH = new ProcessHandler(){
-        public void getLogInReturn(int result,String cookie){
-            //TextView textView = (TextView) findViewById(R.id.firstPage);
-            //textView.setText("cookie:"+  cookie);//cookie必须存起来
-            MainActivity.cookie=cookie;
-            loginState = result;
-        }
-        @Override
-        public void getRegitserReturn(int result) {
-            registerState = result;
-        }
-    };
-
-    //示范请求类，用它发送请求，构造的时候把重写好的proH响应类传进去
-    HttpContact httpC = new HttpContact(proH);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,8 +38,7 @@ public class loginActivity extends Activity {
                 String psw = etPsw.getText().toString().trim();
                 user.setUserName(userName);
                 user.setPassword(psw);
-                httpC.logIn(user);
-                System.out.println("当前登录状态"+loginState);
+                loginState = AccountService.getInstance().getLoginState(user);
                 if (loginState == 1){
                     finish();
                 }

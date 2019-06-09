@@ -1,5 +1,6 @@
 package com.example.user.templatedemo.Service;
 
+import com.example.user.templatedemo.Domain.User;
 import com.example.user.templatedemo.Handlers.HttpContact;
 import com.example.user.templatedemo.Handlers.ProcessHandler;
 import com.example.user.templatedemo.MainActivity;
@@ -25,7 +26,8 @@ public class AccountService {
             }
         };
         //示范请求类，用它发送请求，构造的时候把重写好的proH响应类传进去
-        httpC = new HttpContact(proH);
+        this.httpC = new HttpContact(proH);
+        accountService = this;
     }
 
     public static AccountService getInstance(){
@@ -33,7 +35,9 @@ public class AccountService {
         return accountService;
     }
 
-    public int getLoginState(){
+    public int getLoginState(User user){
+        httpC.logIn(user);
+        System.out.println("结果为:" + loginState);
         return loginState;
     }
 

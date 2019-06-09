@@ -1,170 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/bg"
     android:orientation="vertical" >
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/colorPrimary"
-        android:gravity="center_vertical">
+    <!--输入框-->
+    <EditText
+        android:id="@+id/et_username_register"
+        android:layout_width="320dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="60dp"
+        android:hint="请输入账号"
+        android:textSize="20sp"
+        android:background="@drawable/shap"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="注册"
-            android:textSize="30sp"/>
+    <EditText
+        android:id="@+id/et_psw_register"
+        android:layout_width="320dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:hint="请输入密码"
+        android:textSize="20sp"
+        android:inputType="textPassword"
+        android:background="@drawable/shap"/>
 
-    </RelativeLayout>
+    <EditText
+        android:id="@+id/et_psw_again"
+        android:layout_width="320dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:hint="请再次输入密码"
+        android:textSize="20sp"
+        android:inputType="textPassword"
+        android:background="@drawable/shap"/>
+
+    <EditText
+        android:id="@+id/et_position"
+        android:layout_width="320dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shap"
+        android:hint="请输入分位"
+        android:textSize="20sp" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_margin="5.0dip"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <EditText
+        android:id="@+id/et_height"
+        android:layout_width="160dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/shap"
-        android:orientation="vertical" >
+        android:hint="身高"
+        android:textSize="20sp"
+        android:layout_gravity="left"
+        android:gravity="left|center_vertical"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal" >
+    <EditText
+        android:id="@+id/et_age"
+        android:layout_width="160dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shap"
+        android:hint="球龄"
+        android:textSize="20sp"
+        android:layout_gravity="right" />
 
-            <EditText
-                android:id="@+id/et_user_name_register"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="#ffffff"
-                android:hint="账号"
-                android:maxLength="15"
-                android:paddingLeft="6dp"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp"
-                android:singleLine="true"
-                android:textSize="18sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:background="@drawable/shap"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal" >
-
-            <EditText
-                android:id="@+id/et_psw_register"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="#ffffff"
-                android:hint="请输入密码"
-                android:inputType="textPassword"
-                android:maxLength="15"
-                android:paddingLeft="6dp"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp"
-                android:singleLine="true"
-                android:textSize="18sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:background="@drawable/shap"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal" >
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp"
-                android:paddingLeft="6dp"
-                android:singleLine="true"
-                android:hint="请再次输入密码"
-                android:inputType="textPassword"
-                android:maxLength="15"
-                android:background="#ffffff"
-                android:id="@+id/et_psw_again"
-                android:textSize="18sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:background="@drawable/shap"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal" >
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp"
-                android:paddingLeft="6dp"
-                android:singleLine="true"
-                android:hint="请输入篮球位置"
-                android:inputType="textPassword"
-                android:maxLength="15"
-                android:background="#ffffff"
-                android:id="@+id/et_position"
-                android:textSize="18sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:background="@drawable/shap"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal" >
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp"
-                android:paddingLeft="6dp"
-                android:singleLine="true"
-                android:hint="身高"
-                android:inputType="textPassword"
-                android:maxLength="15"
-                android:background="#ffffff"
-                android:id="@+id/et_height"
-                android:textSize="18sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal" >
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp"
-                android:paddingLeft="6dp"
-                android:hint="球龄"
-                android:singleLine="true"
-                android:maxLength="15"
-                android:background="#ffffff"
-                android:id="@+id/et_age"
-                android:textSize="18sp" />
-        </LinearLayout>
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
     </LinearLayout>
 
     <RelativeLayout
@@ -175,7 +97,7 @@
         android:layout_marginRight="10dp" >
         <Button
             android:id="@+id/btn_register"
-            android:layout_width="match_parent"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_marginLeft="20dp"
@@ -183,7 +105,7 @@
             android:layout_marginTop="40dp"
             android:text="注册"
             android:textSize="24sp"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/btn_bg"
             />
     </RelativeLayout>
 

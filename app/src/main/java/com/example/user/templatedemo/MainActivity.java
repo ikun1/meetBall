@@ -1,7 +1,9 @@
 package com.example.user.templatedemo;
 
+import android.accounts.Account;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -28,6 +30,7 @@ import com.example.user.templatedemo.Handlers.HttpContact;
 import com.example.user.templatedemo.Handlers.ProcessHandler;
 import com.example.user.templatedemo.Handlers.SocketContact;
 import com.example.user.templatedemo.Interfaces.ReplyMethodS;
+import com.example.user.templatedemo.Service.AccountService;
 import com.example.user.templatedemo.Service.SocketService;
 
 import java.util.List;
@@ -38,10 +41,13 @@ public class MainActivity extends AppCompatActivity {
     private Fragment1 fragment1;
     private Fragment2 fragment2;
     private Fragment3 fragment3;
+    private Fragment4 fragment4;
+    private FragmentBall fragmentBall;
     private long mExitTime;//按两次退出时间间隔记录。
     private ImageView blurImageView;
     private ImageView avatarImageView;
     public static SocketService socketService;//注意，socketService只需在主界面声明，后面必须保持单例
+    public static AccountService accountService;
     public static String cookie;
 
     @Override
@@ -67,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -86,6 +91,14 @@ public class MainActivity extends AppCompatActivity {
                     mTextMessage.setText(R.string.title_notifications);
                     showNav(R.id.navigation_notifications);
                     return true;
+                case R.id.navigation_ball:
+                    //mTextMessage.setText(R.string.title_notifications);
+                    showNav(R.id.navigation_ball);
+                    return true;
+                case R.id.navigation_friend:
+                    mTextMessage.setText("好友");
+                    showNav(R.id.navigation_friend);
+                    return true;
             }
             return false;
         }
@@ -97,9 +110,12 @@ public class MainActivity extends AppCompatActivity {
         fragment1 = new Fragment1();
         fragment2 = new Fragment2();
         fragment3 = new Fragment3();
+        fragment4 = new Fragment4();
+        fragmentBall = new FragmentBall();
+
         FragmentTransaction beginTransaction = getFragmentManager().beginTransaction();
-        beginTransaction.add(R.id.content, fragment1).add(R.id.content, fragment2).add(R.id.content, fragment3);//开启一个事务将fragment动态加载到组件
-        beginTransaction.hide(fragment1).hide(fragment2).hide(fragment3);//隐藏fragment
+        beginTransaction.add(R.id.content, fragment1).add(R.id.content, fragment2).add(R.id.content, fragment3).add(R.id.content, fragment4).add(R.id.content, fragmentBall);//开启一个事务将fragment动态加载到组件
+        beginTransaction.hide(fragment1).hide(fragment2).hide(fragment3).hide(fragment4).hide(fragmentBall);//隐藏fragment
         beginTransaction.commit();//每一个事务最后操作必须是commit（），否则看不见效果
         showNav(R.id.navigation_home);
     }
@@ -108,18 +124,28 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction beginTransaction = getFragmentManager().beginTransaction();
         switch (navid) {
             case R.id.navigation_home:
-                beginTransaction.hide(fragment2).hide(fragment3);
+                beginTransaction.hide(fragment2).hide(fragment3).hide(fragment4).hide(fragmentBall);
                 beginTransaction.show(fragment1);
                 beginTransaction.commit();
                 break;
             case R.id.navigation_dashboard:
-                beginTransaction.hide(fragment1).hide(fragment3);
+                beginTransaction.hide(fragment1).hide(fragment3).hide(fragment4).hide(fragmentBall);
                 beginTransaction.show(fragment2);
                 beginTransaction.commit();
                 break;
             case R.id.navigation_notifications:
-                beginTransaction.hide(fragment2).hide(fragment1);
+                beginTransaction.hide(fragment2).hide(fragment1).hide(fragment4).hide(fragmentBall);
                 beginTransaction.show(fragment3);
+                beginTransaction.commit();
+                break;
+            case R.id.navigation_friend:
+                beginTransaction.hide(fragment2).hide(fragment1).hide(fragment3).hide(fragmentBall);
+                beginTransaction.show(fragment4);
+                beginTransaction.commit();
+                break;
+            case R.id.navigation_ball:
+                beginTransaction.hide(fragment2).hide(fragment1).hide(fragment4).hide(fragment3);
+                beginTransaction.show(fragmentBall);
                 beginTransaction.commit();
                 break;
         }
@@ -178,5 +204,11 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+        accountService = new AccountService();
+        if (true){
+            //加入是否首次登录的判断
+            Intent intent = new Intent(MainActivity.this, loginActivity.class);
+            startActivity(intent);
+        }
     }
 }

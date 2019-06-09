@@ -4,7 +4,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@mipmap/bg">
 
     <!--显示头像，记得加入id iv_head -->
     <LinearLayout
@@ -23,31 +24,23 @@
     <EditText
         android:id="@+id/et_user_name"
         android:layout_width="320dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_gravity="center"
         android:layout_marginTop="60dp"
         android:hint="账号"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:background="@drawable/shap"/>
     <!--输入框-->
     <EditText
         android:id="@+id/et_psw"
         android:layout_width="320dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:hint="密码"
         android:textSize="20sp"
-        android:inputType="textPassword"/>
-    <!--按钮-->
-    <Button
-        android:id="@+id/btn_login"
-        android:text="登录"
-        android:background="#1E90FF"
-        android:textSize="24sp"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:layout_width="320dp"
-        android:layout_height="wrap_content"/>
+        android:inputType="textPassword"
+        android:background="@drawable/shap"/>
     <!--显示tv register , find_psw -->
     <RelativeLayout
         android:layout_marginTop="15dp"
@@ -69,6 +62,16 @@
             android:layout_height="wrap_content"
             android:text="忘记密码？" />
     </RelativeLayout>
+    <!--按钮-->
+    <Button
+        android:id="@+id/btn_login"
+        android:text="登录"
+        android:background="@drawable/btn_bg"
+        android:textSize="24sp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content" />
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
