@@ -38,6 +38,7 @@ public  class SocketService {
 
                 @Override
                 public void getResult(int type, JSONObject jsonObject) {
+                    System.out.println(jsonObject.toString());
                     processResult(type, jsonObject);
                 }
             };
@@ -85,12 +86,11 @@ public  class SocketService {
         try {
             //传入除id外的Match信息，开始匹配
             JSONObject jsonObject = new JSONObject();
+            Gson gson = new Gson();
+            String matchStr = gson.toJson(match);
+
             jsonObject.put("cookie", cookie);
-            jsonObject.put("location_lat",match.getLocation_lat());
-            jsonObject.put("location_lng",match.getLocation_lng());
-            jsonObject.put("beginTime",match.getBeginTime());
-            jsonObject.put("endTime",match.getEndTime());
-            jsonObject.put("method",match.getMethod());
+            jsonObject.put("match",matchStr);
 
             System.out.println(jsonObject.toString());
 
@@ -104,7 +104,7 @@ public  class SocketService {
     private void processResult(int type, JSONObject jsonObject){
         switch (type){
             case SocketContact.GETINFO:getInformation(jsonObject);break;
-            case SocketContact.MATCHRE:getMatchRe(jsonObject);break;
+            case SocketContact.MATCH:getMatchRe(jsonObject);break;
             case SocketContact.MATCHINFO:getMatchInfo(jsonObject);break;
 
         }
