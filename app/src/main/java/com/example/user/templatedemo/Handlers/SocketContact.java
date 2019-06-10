@@ -1,11 +1,17 @@
 package com.example.user.templatedemo.Handlers;
 
+import android.os.Bundle;
 import android.os.Message;
 
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -23,6 +29,7 @@ public class SocketContact {
     public static final  int MATCH = 1;
     public static final  int GETINFO = 2;
     public static final int MATCHINFO = 3;
+    public static final int GETIMAGE = 4;
 
     private SocketHandler socketHandler;
 
@@ -50,6 +57,42 @@ public class SocketContact {
             }
         }).start();
     }
+
+    public void sendFile(final File file,final int type) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    PrintWriter out = null;
+                    out = new PrintWriter(new BufferedWriter(
+                            new OutputStreamWriter(socket.getOutputStream())),
+                            true);// 创建输出流对象
+                    out.println(String.valueOf(type));// 转发
+                    FileInputStream fis = new FileInputStream(file);
+                    //BufferedInputStream bi=new BufferedInputStream(new InputStreamReader(new FileInputStream(file),"GBK"));
+                    DataOutputStream dos = new DataOutputStream(socket.getOutputStream());//client.getOutputStream()返回此套接字的输出流
+                    //文件名、大小等属性
+                    dos.writeLong(file.length());
+                    dos.flush();
+                    // 开始传输文件
+                    byte[] bytes = new byte[1024];
+                    int length = 0;
+
+                    while ((length = fis.read(bytes, 0, bytes.length)) != -1) {
+                        dos.write(bytes, 0, length);
+                        dos.flush();
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    System.out.println("客户端文件传输异常");
+                }
+            }
+        }).start();
+    }
+
+
+
 
     public void Connect(){
         /**
@@ -87,7 +130,23 @@ public class SocketContact {
             switch (Type){
                 case "<matchRe>":message.what=MATCH;break;
                 case"<userInfo>":message.what=GETINFO;break;
+                case"<matchInfo>":message.what=MATCHINFO;break;
+                case "<sendImage>":
+                    //特殊处理图片接收
+                    message.what=GETIMAGE;
+                    if(jsonObject.get("result") != -1) {
+                        Bundle bundle = new Bundle();
+                        byte[] data = saveImg();
+                        bundle.putByteArray("image", data);
+                        message.setData(bundle);
+                    }else{
+                        Bundle bundle = new Bundle();
+                        bundle.putByteArray("image",null);
+                        message.setData(bundle);
+                    }
+                    break;
             }
+
             message.obj = jsonObject;
             socketHandler.sendMessage(message);
 
@@ -97,6 +156,26 @@ public class SocketContact {
 
     }
 
+    public byte[] saveImg() {
+        //获取上传图片
+        try {
+
+            DataInputStream dataInput = new DataInputStream(socket.getInputStream());
+
+            Long size0 = dataInput.readLong();
+            int size = size0.intValue();
+            byte[] data = new byte[size];
+            int len = 0;
+            while (len < size) {
+                len += dataInput.read(data, len, size - len);
+            }
+            return data;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     class WaitMessage implements Runnable {
         String typeTarget;

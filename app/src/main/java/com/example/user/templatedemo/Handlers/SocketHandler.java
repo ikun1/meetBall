@@ -21,7 +21,8 @@ public  abstract class SocketHandler extends Handler {
         switch (msg.what) {
             case SocketContact.CONNECT_FAILED:
                 connect_failed();break;
-
+            case SocketContact.GETIMAGE:
+                getImage(msg.getData().getByteArray("image"),jsonObject);break;
             default:
                 getResult(msg.what,jsonObject);break;
 
@@ -31,6 +32,7 @@ public  abstract class SocketHandler extends Handler {
 
     public abstract void connect_failed();//连接失败响应
     public abstract void getResult(int type,JSONObject jsonObject);//匹配返回信息响应,Type是常数，返回结果是jsonObject
+    public abstract void getImage(byte[] data,JSONObject jsonObject);//图片返回信息
 
 
 }

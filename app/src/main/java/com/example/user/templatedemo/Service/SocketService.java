@@ -11,6 +11,10 @@ import com.google.gson.reflect.TypeToken;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +26,7 @@ public  class SocketService {
     private static SocketService socketService;
     private static String fetch = System.getProperty("line.separator");
 
-
+    public final static int AVATAR = 1;//头像文件
     public void ResetMethod(ReplyMethodS replyMethodS){
         //特殊情况会用到，重构响应，用于发送消息前临时重构响应
         this.replyMethodS = replyMethodS;
@@ -42,6 +46,12 @@ public  class SocketService {
                     System.out.println(jsonObject.toString());
                     processResult(type, jsonObject);
                 }
+
+                @Override
+                public void getImage(byte[] data,JSONObject jsonObject){
+                    System.out.println(jsonObject.toString());
+                    processImage(data,jsonObject);
+                }
             };
             socketContact = new SocketContact(socketHandler);
             socketContact.Connect();
@@ -51,6 +61,17 @@ public  class SocketService {
     public static SocketService getInstance(){
         //由于socket链接的特殊性，用该方法保持单例模式
         return socketService;
+    }
+
+    public void  processImage(byte[] data,JSONObject jsonObject){
+        try {
+            int result = jsonObject.getInt("result");
+            String name = jsonObject.getString("name");
+            replyMethodS.getImage(result,name,data);
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     public void askInfomation (String userName){
@@ -113,12 +134,37 @@ public  class SocketService {
 
     }
 
+    public void uploadImage(String filePath,int type)
+    {//上传图片，传入文件地址和类型（头像为类型1）
+        try{
+        if(type == AVATAR)
+        {
+            socketContact.sendFile(new File(filePath),type);
+        }}
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void downloadImage (int type,String param){
+        try {
+            //下载图片，传入图像类型（常量之一），以及图像参数，类型1头像的参数为用户名
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("type", type);
+            jsonObject.put("param",param);
+
+            socketContact.sendMessage("<downloadImage>" + fetch + jsonObject.toString() + fetch + "</downloadImage>");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
     private void processResult(int type, JSONObject jsonObject){
         switch (type){
             case SocketContact.GETINFO:getInformation(jsonObject);break;
             case SocketContact.MATCH:getMatchRe(jsonObject);break;
             case SocketContact.MATCHINFO:getMatchInfo(jsonObject);break;
-
         }
 
 
@@ -167,5 +213,33 @@ public  class SocketService {
         }
 
     }
+
+    private byte[] readFileToByteArray(String path) {
+        File file = new File(path);
+        if(!file.exists()) {
+            return null;
+        }
+        try {
+            FileInputStream in = new FileInputStream(file);
+            long inSize = in.getChannel().size();//判断FileInputStream中是否有内容
+            if (inSize == 0) {
+                return null;
+            }
+
+            byte[] buffer = new byte[in.available()];//in.available() 表示要读取的文件中的数据长度
+            in.read(buffer);  //将文件中的数据读到buffer中
+            in.close();
+            return buffer;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+        }
+
+
+
 
 }
