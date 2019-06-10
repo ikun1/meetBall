@@ -216,6 +216,12 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
+            @Override
+            public void getImage(int result,String imageName,byte[] data){
+
+            }
+
+
         });
         accountService = new AccountService();
         if (true){

@@ -134,7 +134,7 @@ public class SocketContact {
                 case "<sendImage>":
                     //特殊处理图片接收
                     message.what=GETIMAGE;
-                    if(jsonObject.get("result") != -1) {
+                    if((int)jsonObject.get("result") != -1) {
                         Bundle bundle = new Bundle();
                         byte[] data = saveImg();
                         bundle.putByteArray("image", data);
