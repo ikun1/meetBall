@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
     public static SocketService socketService;//注意，socketService只需在主界面声明，后面必须保持单例
     public static AccountService accountService;
     public static String cookie;
-    private WheelView hourWheelView,minuteWheelView,secondWheelView;
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -104,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
                     showNav(R.id.navigation_notifications);
                     return true;
                 case R.id.navigation_ball:
-                    //mTextMessage.setText(R.string.title_notifications);
+                    mTextMessage.setText(R.string.title_ball);
                     showNav(R.id.navigation_ball);
                     return true;
                 case R.id.navigation_friend:
@@ -126,10 +125,12 @@ public class MainActivity extends AppCompatActivity {
         fragmentBall = new FragmentBall();
 
         FragmentTransaction beginTransaction = getFragmentManager().beginTransaction();
-        beginTransaction.add(R.id.content, fragment1).add(R.id.content, fragment2).add(R.id.content, fragment3).add(R.id.content, fragment4).add(R.id.content, fragmentBall);//开启一个事务将fragment动态加载到组件
+        beginTransaction.add(R.id.content, fragment1).add(R.id.content, fragment2).add(R.id.content, fragmentBall).add(R.id.content, fragment3).add(R.id.content, fragment4);//开启一个事务将fragment动态加载到组件
         beginTransaction.hide(fragment1).hide(fragment2).hide(fragment3).hide(fragment4).hide(fragmentBall);//隐藏fragment
         beginTransaction.commit();//每一个事务最后操作必须是commit（），否则看不见效果
-        showNav(R.id.navigation_home);
+
+        //修改这里可以弄好
+        showNav(R.id.navigation_ball);
     }
 
     private void showNav(int navid) {
@@ -156,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
                 beginTransaction.commit();
                 break;
             case R.id.navigation_ball:
-                beginTransaction.hide(fragment2).hide(fragment1).hide(fragment4).hide(fragment3);
+                beginTransaction.hide(fragment2).hide(fragment1).hide(fragment3).hide(fragment4);
                 beginTransaction.show(fragmentBall);
                 beginTransaction.commit();
                 break;
@@ -185,13 +186,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        init();
-
         //initBack();
 
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        init();
         //initWheel2();
         socketService = new SocketService(new ReplyMethodS() {
             @Override
@@ -215,13 +215,10 @@ public class MainActivity extends AppCompatActivity {
             public void getMatchInfo(Match match){//从匹配ID获取到匹配信息的触发
 
             }
-
             @Override
             public void getImage(int result,String imageName,byte[] data){
 
             }
-
-
         });
         accountService = new AccountService();
         if (true){
@@ -230,6 +227,5 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
-
 
 }

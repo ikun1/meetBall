@@ -81,7 +81,9 @@ public class FragmentBall extends Fragment {
     private void initWheel2() {
         hourWheelView = (WheelView) getView().findViewById(R.id.hour_wheelview);
         hourWheelView.setWheelAdapter(new ArrayWheelAdapter(this.getActivity()));
-        hourWheelView.setSkin(WheelView.Skin.Holo);
+        hourWheelView.setSkin(WheelView.Skin.Common);
+        System.out.println("已经实现了界面");
+
         hourWheelView.setWheelData(createHours());
         WheelView.WheelViewStyle style = new WheelView.WheelViewStyle();
         style.selectedTextColor = Color.parseColor("#0288ce");
@@ -89,11 +91,12 @@ public class FragmentBall extends Fragment {
         style.selectedTextSize = 20;
         hourWheelView.setStyle(style);
         hourWheelView.setExtraText("时", Color.parseColor("#0288ce"), 40, 170);
+
         System.out.println("啊啊啊啊啊啊啊" + hourWheelView.getSelection());
 
         minuteWheelView = (WheelView) getView().findViewById(R.id.minute_wheelview);
         minuteWheelView.setWheelAdapter(new ArrayWheelAdapter(this.getActivity()));
-        minuteWheelView.setSkin(WheelView.Skin.Holo);
+        minuteWheelView.setSkin(WheelView.Skin.Common);
         minuteWheelView.setWheelData(createMinutes());
         minuteWheelView.setStyle(style);
         minuteWheelView.setExtraText("分", Color.parseColor("#0288ce"), 40, 7);

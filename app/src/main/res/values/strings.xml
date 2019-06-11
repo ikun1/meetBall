@@ -2,6 +2,8 @@
     <string name="app_name">templateDemo</string>
     <string name="title_home">首页</string>
     <string name="title_dashboard">社区</string>
+    <string name="title_ball">约球</string>
+    <string name="title_friend">好友</string>
     <string name="title_notifications">我的</string>
     <string name="exit">再按一次退出可遇可球</string>
     <string name="error">对不起，用户名或密码错误</string>

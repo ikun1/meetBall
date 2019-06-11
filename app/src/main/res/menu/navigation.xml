@@ -16,12 +16,12 @@
     <item
         android:id="@+id/navigation_ball"
         android:icon="@drawable/ic_ball"
-        android:title="@string/title_dashboard" />
+        android:title="@string/title_ball" />
 
     <item
         android:id="@+id/navigation_friend"
         android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/title_dashboard" />
+        android:title="@string/title_friend" />
 
     <item
         android:id="@+id/navigation_notifications"
