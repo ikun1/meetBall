@@ -81,32 +81,31 @@ public class FragmentBall extends Fragment {
     private void initWheel2() {
         hourWheelView = (WheelView) getView().findViewById(R.id.hour_wheelview);
         hourWheelView.setWheelAdapter(new ArrayWheelAdapter(this.getActivity()));
-        hourWheelView.setSkin(WheelView.Skin.Common);
-        System.out.println("已经实现了界面");
+        hourWheelView.setSkin(WheelView.Skin.Holo);
 
-        hourWheelView.setWheelData(createHours());
+        hourWheelView.setWheelData(createPattern());
         WheelView.WheelViewStyle style = new WheelView.WheelViewStyle();
         style.selectedTextColor = Color.parseColor("#0288ce");
         style.textColor = Color.GRAY;
         style.selectedTextSize = 20;
         hourWheelView.setStyle(style);
-        hourWheelView.setExtraText("时", Color.parseColor("#0288ce"), 40, 170);
+        //hourWheelView.setExtraText("时", Color.parseColor("#0288ce"), 40, 70);
 
         System.out.println("啊啊啊啊啊啊啊" + hourWheelView.getSelection());
 
         minuteWheelView = (WheelView) getView().findViewById(R.id.minute_wheelview);
         minuteWheelView.setWheelAdapter(new ArrayWheelAdapter(this.getActivity()));
-        minuteWheelView.setSkin(WheelView.Skin.Common);
-        minuteWheelView.setWheelData(createMinutes());
+        minuteWheelView.setSkin(WheelView.Skin.Holo);
+        minuteWheelView.setWheelData(createHours());
         minuteWheelView.setStyle(style);
-        minuteWheelView.setExtraText("分", Color.parseColor("#0288ce"), 40, 7);
+        minuteWheelView.setExtraText("时", Color.parseColor("#0288ce"), 40, 70);
 
         secondWheelView = (WheelView) getView().findViewById(R.id.second_wheelview);
         secondWheelView.setWheelAdapter(new ArrayWheelAdapter(this.getActivity()));
         secondWheelView.setSkin(WheelView.Skin.Holo);
         secondWheelView.setWheelData(createMinutes());
         secondWheelView.setStyle(style);
-        secondWheelView.setExtraText("秒", Color.parseColor("#0288ce"), 40, 70);
+        secondWheelView.setExtraText("分", Color.parseColor("#0288ce"), 40, 70);
     }
 
 
@@ -119,6 +118,16 @@ public class FragmentBall extends Fragment {
                 list.add("" + i);
             }
         }
+        return list;
+    }
+
+    private ArrayList<String> createPattern() {
+        ArrayList<String> list = new ArrayList<String>();
+        list.add("1v1");
+        list.add("2v2");
+        list.add("3v3");
+        list.add("4v4");
+        list.add("5v5");
         return list;
     }
 

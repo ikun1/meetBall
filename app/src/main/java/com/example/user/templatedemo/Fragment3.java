@@ -26,4 +26,6 @@ public class Fragment3 extends Fragment {
         return inflater.inflate(R.layout.fragment_3, container, false);
     }
 
+
+
 }

@@ -5,12 +5,12 @@
         android:id="@+id/navigation_home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@drawable/news"
         android:title="@string/title_home" />
 
     <item
         android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:icon="@drawable/cart"
         android:title="@string/title_dashboard" />
 
     <item
@@ -20,12 +20,12 @@
 
     <item
         android:id="@+id/navigation_friend"
-        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:icon="@drawable/friend"
         android:title="@string/title_friend" />
 
     <item
         android:id="@+id/navigation_notifications"
-        android:icon="@drawable/ic_notifications_black_24dp"
+        android:icon="@drawable/my"
         android:title="@string/title_notifications" />
 
 </menu>

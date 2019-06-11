@@ -11,9 +11,12 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -104,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_ball:
                     mTextMessage.setText(R.string.title_ball);
+                    //item.setIcon(R.drawable.ball_selected);
                     showNav(R.id.navigation_ball);
                     return true;
                 case R.id.navigation_friend:
@@ -150,6 +154,7 @@ public class MainActivity extends AppCompatActivity {
                 beginTransaction.hide(fragment2).hide(fragment1).hide(fragment4).hide(fragmentBall);
                 beginTransaction.show(fragment3);
                 beginTransaction.commit();
+                initBack();
                 break;
             case R.id.navigation_friend:
                 beginTransaction.hide(fragment2).hide(fragment1).hide(fragment3).hide(fragmentBall);
@@ -163,6 +168,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
+
     //为Fragment3添加磨砂背景
     private void initBack(){
         blurImageView = (ImageView) findViewById(R.id.iv_blur);
@@ -190,6 +196,8 @@ public class MainActivity extends AppCompatActivity {
 
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setSelectedItemId(R.id.navigation_ball);//更改默认选中底部菜单
+        navigation.setItemIconTintList(null);//删除默认颜色
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         init();
         //initWheel2();
