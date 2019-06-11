@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.user.templatedemo.Domain.User;
 import com.example.user.templatedemo.Handlers.HttpContact;
@@ -38,12 +39,19 @@ public class registerActivity extends Activity {
                 user.setRole(position);
                 user.setHeight(height);
                 user.setAge(age);
-                registerState = AccountService.getInstance().getRegisterState();
-                System.out.println("注册状态"+registerState);
-                if (registerState == 1){
-                    finish();
-                }
+                AccountService.getInstance().sendRegister(user,(registerActivity) v.getContext());
+
             }
         });
+    }
+
+    public void finishRegister(int registerState)
+    {
+        if (registerState == 1){
+            finish();
+        }
+        else{
+            Toast.makeText(this, getString(R.string.registerExist).toString(), Toast.LENGTH_SHORT).show();
+        }
     }
 }

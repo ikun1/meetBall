@@ -8,12 +8,14 @@ import com.example.user.templatedemo.Handlers.HttpContact;
 import com.example.user.templatedemo.Handlers.ProcessHandler;
 import com.example.user.templatedemo.MainActivity;
 import com.example.user.templatedemo.loginActivity;
+import com.example.user.templatedemo.registerActivity;
 
 public class AccountService {
     int loginState;
     int registerState;
     HttpContact httpC;
     loginActivity react;
+    registerActivity registerActivity1;
     private static AccountService accountService;
 
     public static int LOGIN = 1;
@@ -32,7 +34,8 @@ public class AccountService {
             }
             @Override
             public void getRegitserReturn(int result) {
-                registerState = result;
+                registerActivity1.finishRegister(result);
+
             }
         };
         //示范请求类，用它发送请求，构造的时候把重写好的proH响应类传进去
@@ -48,6 +51,12 @@ public class AccountService {
     public void getLoginState(User user, loginActivity react){
         httpC.logIn(user);
         this.react = react;
+    }
+
+    public void sendRegister(User user,registerActivity registerActivity1)
+    {
+        httpC.register(user);
+        this.registerActivity1 = registerActivity1;
     }
 
     public int getRegisterState(){
