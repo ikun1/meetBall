@@ -67,7 +67,6 @@ public class SocketContact {
                     out = new PrintWriter(new BufferedWriter(
                             new OutputStreamWriter(socket.getOutputStream())),
                             true);// 创建输出流对象
-                    out.println(String.valueOf(type));// 转发
                     FileInputStream fis = new FileInputStream(file);
                     //BufferedInputStream bi=new BufferedInputStream(new InputStreamReader(new FileInputStream(file),"GBK"));
                     DataOutputStream dos = new DataOutputStream(socket.getOutputStream());//client.getOutputStream()返回此套接字的输出流
@@ -83,6 +82,7 @@ public class SocketContact {
                         dos.flush();
                     }
 
+                    System.out.println("传输完毕");
                 } catch (IOException e) {
                     e.printStackTrace();
                     System.out.println("客户端文件传输异常");

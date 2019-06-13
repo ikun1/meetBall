@@ -139,6 +139,7 @@ public  class SocketService {
         try{
         if(type == AVATAR)
         {
+            socketContact.sendMessage("<uploadImage>" + fetch + "1");
             socketContact.sendFile(new File(filePath),type);
         }}
         catch (Exception e){

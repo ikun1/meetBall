@@ -36,6 +36,7 @@ import com.example.user.templatedemo.Handlers.ProcessHandler;
 import com.example.user.templatedemo.Handlers.SocketContact;
 import com.example.user.templatedemo.Interfaces.ReplyMethodS;
 import com.example.user.templatedemo.Service.AccountService;
+import com.example.user.templatedemo.Service.ImageService;
 import com.example.user.templatedemo.Service.SocketService;
 import com.wx.wheelview.adapter.ArrayWheelAdapter;
 import com.wx.wheelview.adapter.SimpleWheelAdapter;
@@ -52,10 +53,10 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
-    private Fragment1 fragment1;
-    private Fragment2 fragment2;
-    private Fragment3 fragment3;
-    private Fragment4 fragment4;
+    public Fragment1 fragment1;
+    public Fragment2 fragment2;
+    public Fragment3 fragment3;
+    public Fragment4 fragment4;
     private FragmentBall fragmentBall;
     private long mExitTime;//按两次退出时间间隔记录。
     private ImageView blurImageView;
@@ -63,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
     public static SocketService socketService;//注意，socketService只需在主界面声明，后面必须保持单例
     public static AccountService accountService;
     public static String cookie;
+    public static ImageService imageService;
+
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -175,9 +178,6 @@ public class MainActivity extends AppCompatActivity {
         avatarImageView = (ImageView) findViewById(R.id.iv_avatar);
 
         //final NavigationView mNavigationView = (NavigationView)findViewById(R.id.navigation_notifications);
-        System.out.println("这个是log");
-        System.out.println(blurImageView);
-        System.out.println(R.id.iv_avatar);
 
         Glide.with(this).load(R.drawable.head)
                 .bitmapTransform(new BlurTransformation(this, 25), new CenterCrop(this))
@@ -225,10 +225,11 @@ public class MainActivity extends AppCompatActivity {
             }
             @Override
             public void getImage(int result,String imageName,byte[] data){
-
+                fragment3.refreshAvatar(result,imageName,data);
             }
         });
         accountService = new AccountService();
+        imageService = new ImageService(this);
         if (true){
             //加入是否首次登录的判断
             Intent intent = new Intent(MainActivity.this, loginActivity.class);
