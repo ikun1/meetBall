@@ -1,6 +1,7 @@
 package com.example.user.templatedemo.Handlers;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Message;
 
 import org.json.JSONObject;
@@ -31,6 +32,7 @@ public class SocketContact {
     public static final int MATCHINFO = 3;
     public static final int GETIMAGE = 4;
 
+
     private SocketHandler socketHandler;
 
     public SocketContact (SocketHandler socketHandler){
@@ -56,6 +58,7 @@ public class SocketContact {
                 }
             }
         }).start();
+
     }
 
     public void sendFile(final File file,final int type) {

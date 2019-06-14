@@ -44,6 +44,7 @@ public class loginActivity extends Activity {
                 String psw = etPsw.getText().toString().trim();
                 user.setUserName(userName);
                 user.setPassword(psw);
+                MainActivity.getInstance().user = user;
                 AccountService.getInstance().getLoginState(user,(loginActivity)v.getContext());
 
             }

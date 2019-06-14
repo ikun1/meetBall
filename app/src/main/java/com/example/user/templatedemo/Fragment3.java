@@ -83,12 +83,14 @@ public class Fragment3 extends Fragment {
     {
         if(result != -1)
         {
+
             Glide.with(this).load(data)
                     .bitmapTransform(new BlurTransformation(getActivity(), 25), new CenterCrop(getActivity()))
                     .into(blurImageView);
             Glide.with(this).load(data)
                     .bitmapTransform(new CropCircleTransformation(getActivity()))
                     .into(avatarImageView);
+
         }
 
     }

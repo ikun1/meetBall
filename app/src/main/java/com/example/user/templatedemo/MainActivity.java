@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -24,11 +25,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.Transformation;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 
 import jp.wasabeef.glide.transformations.BlurTransformation;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
+import com.example.user.templatedemo.Affairs.ImageAffair;
 import com.example.user.templatedemo.Domain.Match;
 import com.example.user.templatedemo.Domain.User;
 import com.example.user.templatedemo.Handlers.HttpContact;
@@ -65,7 +68,12 @@ public class MainActivity extends AppCompatActivity {
     public static AccountService accountService;
     public static String cookie;
     public static ImageService imageService;
+    public static MainActivity mainActivity;
+    public User user;
 
+    public static MainActivity getInstance(){
+        return mainActivity;
+    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -179,18 +187,38 @@ public class MainActivity extends AppCompatActivity {
 
         //final NavigationView mNavigationView = (NavigationView)findViewById(R.id.navigation_notifications);
 
-        Glide.with(this).load(R.drawable.head)
+        List<Transformation<Bitmap>> shapes = new ArrayList<>();
+        shapes.add(new BlurTransformation(this, 25));
+        shapes.add( new CenterCrop(this));
+        ImageAffair affair1 = new ImageAffair(shapes,blurImageView,"avatar_" + user.getUserName());
+        imageService.loadAffairs(affair1);
+
+        List<Transformation<Bitmap>> shapes1 = new ArrayList<>();
+        shapes1.add(new CropCircleTransformation(this));
+
+        ImageAffair affair2 = new ImageAffair(shapes1,avatarImageView,"avatar_" + user.getUserName());
+        imageService.loadAffairs(affair2);
+
+
+
+        //使用image事务管理代替了下面的源代码
+        /*Glide.with(this).load(R.drawable.head)
                 .bitmapTransform(new BlurTransformation(this, 25), new CenterCrop(this))
                 .into(blurImageView);
 
         Glide.with(this).load(R.drawable.head)
                 .bitmapTransform(new CropCircleTransformation(this))
-                .into(avatarImageView);
+                .into(avatarImageView);*/
+
+
+
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mainActivity = this;
+        imageService = new ImageService(this);
         setContentView(R.layout.activity_main);
         //initBack();
 
@@ -225,11 +253,10 @@ public class MainActivity extends AppCompatActivity {
             }
             @Override
             public void getImage(int result,String imageName,byte[] data){
-                fragment3.refreshAvatar(result,imageName,data);
+                imageService.refreshAvatar(result,imageName,data);
             }
         });
         accountService = new AccountService();
-        imageService = new ImageService(this);
         if (true){
             //加入是否首次登录的判断
             Intent intent = new Intent(MainActivity.this, loginActivity.class);
