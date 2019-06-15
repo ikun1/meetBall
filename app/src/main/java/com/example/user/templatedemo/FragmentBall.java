@@ -2,13 +2,17 @@ package com.example.user.templatedemo;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.app.Fragment;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.user.templatedemo.Domain.Match;
 import com.example.user.templatedemo.Service.SocketService;
@@ -29,7 +33,7 @@ import java.util.List;
 
 public class FragmentBall extends Fragment {
     private WheelView hourWheelView,minuteWheelView,secondWheelView;
-    Date date;
+    private Date date;
 
     @Nullable
     @Override
@@ -142,4 +146,5 @@ public class FragmentBall extends Fragment {
         }
         return list;
     }
+
 }
