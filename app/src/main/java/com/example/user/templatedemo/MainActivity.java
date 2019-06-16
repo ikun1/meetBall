@@ -12,6 +12,11 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.OrientationHelper;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -43,6 +48,7 @@ import com.example.user.templatedemo.Interfaces.ReplyMethodS;
 import com.example.user.templatedemo.Service.AccountService;
 import com.example.user.templatedemo.Service.ImageService;
 import com.example.user.templatedemo.Service.SocketService;
+import com.example.user.templatedemo.Tools.NormalAdapter;
 import com.wx.wheelview.adapter.ArrayWheelAdapter;
 import com.wx.wheelview.adapter.SimpleWheelAdapter;
 import com.wx.wheelview.common.WheelData;
@@ -148,6 +154,7 @@ public class MainActivity extends AppCompatActivity {
 
         //修改这里可以弄好
         showNav(R.id.navigation_ball);
+
     }
 
     private void showNav(int navid) {
@@ -267,5 +274,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
+
 
 }

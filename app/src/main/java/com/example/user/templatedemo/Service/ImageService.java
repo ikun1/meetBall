@@ -3,6 +3,11 @@ package com.example.user.templatedemo.Service;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.PixelFormat;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.NinePatchDrawable;
 import android.os.Handler;
 import android.os.Looper;
 import android.widget.ImageView;
@@ -86,11 +91,37 @@ public class ImageService {
     }
 
 
-    public byte[] Bitmap2Bytes(Bitmap bm) {
+    public static byte[] Bitmap2Bytes(Bitmap bm) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
        return baos.toByteArray();
        }
+
+       public static Bitmap Bytes2Bitmap(byte[] bytes){
+           return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+       }
+
+       public static Bitmap Drawable2Bitmap (Drawable drawable){
+           if (drawable instanceof BitmapDrawable) {
+               return ((BitmapDrawable) drawable).getBitmap();
+           } else if (drawable instanceof NinePatchDrawable) {
+               Bitmap bitmap = Bitmap
+                       .createBitmap(
+                               drawable.getIntrinsicWidth(),
+                               drawable.getIntrinsicHeight(),
+                               drawable.getOpacity() != PixelFormat.OPAQUE ?
+                                       Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565);
+               Canvas canvas = new Canvas(bitmap);
+               drawable.setBounds(0, 0, drawable.getIntrinsicWidth(),
+                       drawable.getIntrinsicHeight());
+               drawable.draw(canvas);
+               return bitmap;
+           } else {
+               return null;
+           }
+       }
+
+
 
 
 }
