@@ -240,7 +240,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void getInfomation(User user) {
                 //获取到信息的操作
-                fragment1.reactInfo(user);
+                MainActivity.getInstance().user = user;
+                TextView textView = (TextView)findViewById(R.id.user_name);
+                textView.setText(user.getUserName());
             }
 
             @Override
