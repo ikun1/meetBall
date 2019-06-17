@@ -1,5 +1,6 @@
 package com.example.user.templatedemo;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.media.Image;
@@ -11,9 +12,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.user.templatedemo.Dialogs.PickDateDialog;
 import com.example.user.templatedemo.Domain.Match;
 import com.example.user.templatedemo.Service.SocketService;
 import com.wx.wheelview.adapter.ArrayWheelAdapter;
@@ -27,6 +31,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +39,8 @@ import java.util.List;
 public class FragmentBall extends Fragment {
     private WheelView hourWheelView,minuteWheelView,secondWheelView;
     private Date date;
+    private TextView dateText;
+    private PickDateDialog mMyDialog;
 
     @Nullable
     @Override
@@ -110,6 +117,35 @@ public class FragmentBall extends Fragment {
         secondWheelView.setWheelData(createMinutes());
         secondWheelView.setStyle(style);
         secondWheelView.setExtraText("分", Color.parseColor("#0288ce"), 40, 70);
+
+
+        dateText = getView().findViewById(R.id.dateText);
+        Date nowDate = new Date();
+        SimpleDateFormat format = new SimpleDateFormat(
+                "yyyy年MM月dd日");
+
+
+        String text = format.format(nowDate);
+        dateText.setText(text);
+
+        View dview = MainActivity.getInstance().getLayoutInflater().inflate(R.layout.datedialog, null);
+        mMyDialog = new PickDateDialog(MainActivity.getInstance(), 0, 0, dview, R.style.DialogTheme,nowDate);
+
+        mMyDialog.setReact(new PickDateDialog.onConfrimInterface(){
+            public void onConfrim(Date pickedDate){
+                SimpleDateFormat format = new SimpleDateFormat(
+                        "yyyy年MM月dd日");
+                dateText.setText(format.format(pickedDate));
+            }
+        });
+
+        dateText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mMyDialog.setCancelable(true);
+                mMyDialog.show();
+            }
+        });
     }
 
 

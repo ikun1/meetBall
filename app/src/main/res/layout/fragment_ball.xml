@@ -29,6 +29,16 @@
             android:hint="请输入当前人数"
             android:textSize="20sp"
             android:background="@drawable/shap"/>
+
+        <TextView
+            android:id="@+id/dateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="2019"
+            android:textSize="30dp"
+            />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
