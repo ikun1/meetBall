@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.app.Fragment;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +18,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
 import com.example.user.templatedemo.Dialogs.PickDateDialog;
 import com.example.user.templatedemo.Domain.Match;
 import com.example.user.templatedemo.Service.SocketService;
+import com.example.user.templatedemo.Tools.LocationTools;
 import com.wx.wheelview.adapter.ArrayWheelAdapter;
 import com.wx.wheelview.adapter.SimpleWheelAdapter;
 import com.wx.wheelview.common.WheelData;
@@ -36,10 +42,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-public class FragmentBall extends Fragment {
+public class FragmentBall extends Fragment{
     private WheelView hourWheelView,minuteWheelView,secondWheelView;
     private Date date;
     private TextView dateText;
+    private TextView location;
     private PickDateDialog mMyDialog;
 
     @Nullable
@@ -57,6 +64,7 @@ public class FragmentBall extends Fragment {
     public void onActivityCreated(Bundle bundle)
     {
         initWheel2();
+        init_location();
         Button btnMatch = (Button) getView().findViewById(R.id.btn_match);
         btnMatch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,6 +128,7 @@ public class FragmentBall extends Fragment {
 
 
         dateText = getView().findViewById(R.id.dateText);
+        location = getView().findViewById(R.id.location);
         Date nowDate = new Date();
         SimpleDateFormat format = new SimpleDateFormat(
                 "yyyy年MM月dd日");
@@ -182,5 +191,29 @@ public class FragmentBall extends Fragment {
         }
         return list;
     }
+
+    public void init_location(){
+        LocationTools locationTools = new LocationTools(new LocationTools.ReactEvent() {
+            @Override
+            public void location_change(AMapLocation amapLocation) {
+                if (amapLocation != null) {
+                    if (amapLocation.getErrorCode() == 0) {
+                        //定位成功回调信息，设置相关消息
+                        amapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
+                        Log.e("经度",String.valueOf(amapLocation.getLatitude()));//获取纬度
+                        Log.e("纬度",String.valueOf(amapLocation.getLongitude()));//获取经度
+                        Log.e("街道",String.valueOf(amapLocation.getAddress()));
+                        location.setText(amapLocation.getAddress());
+                    } else {
+                        //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
+                        Log.e("AmapError","location Error, ErrCode:"
+                                + amapLocation.getErrorCode() + ", errInfo:"
+                                + amapLocation.getErrorInfo());
+                    }
+                }
+            }
+        });
+    }
+
 
 }

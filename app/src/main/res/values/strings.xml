@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">templateDemo</string>
+    <string name="app_name">meetball</string>
     <string name="title_home">首页</string>
     <string name="title_dashboard">社区</string>
     <string name="title_ball">约球</string>
